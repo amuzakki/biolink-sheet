@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Link in Bio</title>
+  <meta name="description" content="" />
+  <link rel="icon" id="favicon" type="image/png" href="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F7F7F8;
+      --card-bg: #FFFFFF;
+      --border: #E4E4E7;
+      --text-primary: #18181B;
+      --text-secondary: #71717A;
+      --accent: #2563EB;
+      --accent-fg: #FFFFFF;
+      --tab-active-bg: #2563EB;
+      --tab-active-fg: #FFFFFF;
+      --tab-inactive-bg: #FFFFFF;
+      --tab-inactive-fg: #52525B;
+      --avatar-bg: #E4E4E7;
+      --initials-bg: #DBEAFE;
+      --initials-fg: #1D4ED8;
+      --radius-card: 12px;
+      --radius-tab: 8px;
+      --radius-avatar: 50%;
+      --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+    }
+
+    /* ── Container ── */
+    .bio-wrapper {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* ── Profile ── */
+    .profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding-top: 32px;
+      /*background: var(--card-bg);*/
+      /*border: 1px solid var(--border);*/
+      /*border-radius: var(--radius-card) var(--radius-card) 0 0;*/
+    }
+
+    .avatar-wrap {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-avatar);
+      overflow: hidden;
+      background: var(--avatar-bg);
+      flex-shrink: 0;
+    }
+
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--avatar-bg);
+      border-radius: var(--radius-avatar);
+    }
+
+    .bio-name {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .bio-desc {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.5;
+      max-width: 320px;
+    }
+
+    /* ── Social icons ── */
+    .socials {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card-bg);
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: border-color .15s, color .15s, background .15s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: #EFF6FF;
+    }
+
+    .social-btn svg {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    /* ── Tabs ── */
+    .tabs-bar {
+      display: flex;
+      gap: 6px;
+      padding: 12px 16px;
+      background: var(--card-bg);
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tabs-bar::-webkit-scrollbar { display: none; }
+
+    .tab-btn {
+      flex-shrink: 0;
+      padding: 6px 14px;
+      border-radius: var(--radius-tab);
+      border: 1px solid var(--border);
+      background: var(--tab-inactive-bg);
+      color: var(--tab-inactive-fg);
+      font-family: inherit;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: var(--tab-active-bg);
+      color: var(--tab-active-fg);
+      border-color: var(--tab-active-bg);
+    }
+
+    /* ── Link list ── */
+    .link-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      /*border-top: none;*/
+      border-radius: var(--radius-card) var(--radius-card);
+      overflow: hidden;
+      margin: 40px 0px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      text-decoration: none;
+      color: var(--text-primary);
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+    }
+
+    .link-item:last-child { border-bottom: none; }
+
+    .link-item:hover { background: #F4F4F5; }
+
+    .link-thumb {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+      border: 1px solid var(--border);
+    }
+
+    .link-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .link-initials {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--initials-bg);
+      color: var(--initials-fg);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .link-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      line-height: 1.4;
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .link-arrow {
+      color: var(--text-secondary);
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    .bio-footer {
+      /*padding: 14px 16px;*/
+      /*background: var(--card-bg);*/
+      /*border: 1px solid var(--border);*/
+      /*border-top: none;*/
+      /*border-radius: 0 0 var(--radius-card) var(--radius-card);*/
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    /* ── States ── */
+    .state-loading,
+    .state-error {
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-card);
+    }
+
+    .state-error { color: #EF4444; }
+
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 0 auto 12px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div class="bio-wrapper" id="app">
+  <div class="state-loading">
+    <div class="spinner"></div>
+    Memuat data…
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  CONFIG — ganti dengan milikmu
+// ═══════════════════════════════════════════
+// const SHEET_ID  = 'YOUR_SHEET_ID_HERE';
+// const API_KEY   = 'YOUR_API_KEY_HERE';
+// const SHEET_SETTING = 'General Setting';
+// const SHEET_LINKS   = 'Daftar Link';
+const SHEET_ID  = '1Z23XfN15jAYq9zk0i0v8xMPjpsnBL67qC4UDghrZ8Fk';
+const API_KEY   = 'AIzaSyB14KTlv7Ee3eUF10Q118RvmVx5C29Uqoo';
+const SHEET_SETTING = 'General Setting';
+const SHEET_LINKS   = 'Daftar Link';
+
+// ═══════════════════════════════════════════
+//  SVG ICONS
+// ═══════════════════════════════════════════
+const ICONS = {
+  instagram: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="currentColor" stroke="none"/></svg>`,
+  facebook:  `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+  x:         `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`,
+  tiktok:    `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.07a8.16 8.16 0 0 0 4.77 1.52V7.15a4.85 4.85 0 0 1-1-.46z"/></svg>`,
+  youtube:   `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="white"/></svg>`,
+  whatsapp:  `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>`,
+  telegram:  `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>`,
+};
+
+// ═══════════════════════════════════════════
+//  FETCH
+// ═══════════════════════════════════════════
+async function fetchSheet(sheetName) {
+  const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${encodeURIComponent(sheetName)}?key=${API_KEY}`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`HTTP ${res.status} saat mengambil sheet "${sheetName}"`);
+  const data = await res.json();
+  return data.values || [];
+}
+
+// ═══════════════════════════════════════════
+//  PARSE
+// ═══════════════════════════════════════════
+function parseSetting(rows) {
+  const map = {};
+  for (const row of rows) {
+    if (row[0]) map[row[0].trim()] = (row[1] || '').trim();
+  }
+  return map;
+}
+
+function parseLinks(rows) {
+  // baris pertama = header (Label, URL, URL Gambar)
+  return rows.slice(1).map(r => ({
+    label : (r[0] || '').trim(),
+    url   : (r[1] || '').trim(),
+    image : (r[2] || '').trim(),
+  })).filter(l => l.label && l.url);
+}
+
+// ═══════════════════════════════════════════
+//  RENDER
+// ═══════════════════════════════════════════
+function initials(label) {
+  return label.trim().charAt(0).toUpperCase();
+}
+
+function renderSocialBtn(platform, url) {
+  if (!url || !ICONS[platform]) return '';
+  return `<a href="${url}" target="_blank" rel="noopener" class="social-btn" aria-label="${platform}">${ICONS[platform]}</a>`;
+}
+
+function renderLinkItem(link) {
+  const thumb = link.image
+    ? `<img src="${link.image}" alt="" loading="lazy" />`
+    : `<div class="link-initials">${initials(link.label)}</div>`;
+  return `
+    <a href="${link.url}" target="_blank" rel="noopener" class="link-item">
+      <div class="link-thumb">${thumb}</div>
+      <span class="link-label">${link.label}</span>
+      <span class="link-arrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </span>
+    </a>`;
+}
+
+function buildTabs(links, perTab) {
+  const tabs = [];
+  for (let i = 0; i < links.length; i += perTab) {
+    const start = i + 1;
+    const end   = Math.min(i + perTab, links.length);
+    tabs.push({ label: `${start}–${end}`, items: links.slice(i, i + perTab) });
+  }
+  return tabs;
+}
+
+function renderApp(setting, links) {
+  const app = document.getElementById('app');
+
+  // setting values
+  const avatarUrl   = setting['avatar_url']        || '';
+  const name        = setting['name']               || '';
+  const desc        = setting['description']        || '';
+  const perTab      = parseInt(setting['links_per_tab'] || '50', 10);
+  const copyright   = setting['copyright']          || '';
+  const metaTitle   = setting['meta_title']         || name || 'Link in Bio';
+  const metaDesc    = setting['meta_description']   || '';
+
+  // inject <head> meta dynamically
+  document.title = metaTitle;
+  document.querySelector('meta[name="description"]').setAttribute('content', metaDesc);
+  if (avatarUrl) document.getElementById('favicon').setAttribute('href', avatarUrl);
+
+  // social platforms (key di sheet = ig, fb, x, tiktok, youtube, whatsapp, telegram)
+  const socials = ['instagram','facebook','x','tiktok','youtube','whatsapp','telegram']
+    .map(p => renderSocialBtn(p, setting[p]))
+    .join('');
+
+  // avatar
+  const avatarHTML = avatarUrl
+    ? `<img src="${avatarUrl}" alt="${name}" />`
+    : `<div class="avatar-placeholder"></div>`;
+
+  // tabs
+  const tabs = buildTabs(links, perTab);
+
+  let tabsBarHTML   = '';
+  let linkListsHTML = '';
+
+  if (tabs.length > 1) {
+    tabsBarHTML = `<div class="tabs-bar" id="tabsBar">
+      ${tabs.map((t, i) => `<button class="tab-btn${i === 0 ? ' active' : ''}" data-tab="${i}">${t.label}</button>`).join('')}
+    </div>`;
+  }
+
+  tabs.forEach((t, i) => {
+    linkListsHTML += `
+      <div class="link-list" id="tabPanel${i}" ${i !== 0 ? 'style="display:none"' : ''}>
+        ${t.items.map(renderLinkItem).join('')}
+      </div>`;
+  });
+
+  app.innerHTML = `
+    <div class="profile">
+      <div class="avatar-wrap">${avatarHTML}</div>
+      ${name      ? `<div class="bio-name">${name}</div>` : ''}
+      ${desc      ? `<div class="bio-desc">${desc}</div>` : ''}
+      ${socials   ? `<div class="socials">${socials}</div>` : ''}
+    </div>
+    ${tabsBarHTML}
+    ${linkListsHTML}
+    ${copyright   ? `<div class="bio-footer">© ${new Date().getFullYear()} ${copyright}</div>` : ''}
+  `;
+
+  // tab switching
+  if (tabs.length > 1) {
+    document.getElementById('tabsBar').addEventListener('click', e => {
+      const btn = e.target.closest('.tab-btn');
+      if (!btn) return;
+      const idx = parseInt(btn.dataset.tab, 10);
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      tabs.forEach((_, i) => {
+        document.getElementById(`tabPanel${i}`).style.display = i === idx ? '' : 'none';
+      });
+    });
+  }
+}
+
+// ═══════════════════════════════════════════
+//  BOOT
+// ═══════════════════════════════════════════
+(async () => {
+  try {
+    const [settingRows, linkRows] = await Promise.all([
+      fetchSheet(SHEET_SETTING),
+      fetchSheet(SHEET_LINKS),
+    ]);
+    const setting = parseSetting(settingRows);
+    const links   = parseLinks(linkRows);
+    renderApp(setting, links);
+  } catch (err) {
+    document.getElementById('app').innerHTML = `
+      <div class="state-error">
+        Gagal memuat data.<br>
+        <small>${err.message}</small>
+      </div>`;
+  }
+})();
+</script>
+</body>
+</html>
