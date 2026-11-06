@@ -1,0 +1,92 @@
+{
+  "settings": {
+    "name": "AMz",
+    "description": "Hanya manusia biasa yang saling berbagi",
+    "avatar_url": "https://cdn.jsdelivr.net/gh/kukodein/picser@704c2b4a13b947c6ea36ff6e8020611626b29fd4/uploads/2026-07-05T15-43-28-841Z-skrf0p9vx.jpg",
+    "links_per_tab": 10,
+    "copyright": "AMz. All rights reserved.",
+    "meta_title": "AMz - Sharing favorit product of me",
+    "meta_description": "Silahkan dipilih produk-produk favorit saya dengan klik link nya."
+  },
+  "socials": {
+    "instagram": "https://instagram.com/",
+    "whatsapp": "",
+    "tiktok": "https://tiktok.com/",
+    "youtube": "",
+    "x": "https://x.com/",
+    "facebook": "https://facebook.com/",
+    "telegram": "",
+    "github": "",
+    "linkedin": "",
+    "email": ""
+  },
+  "pinned_links": [
+    {
+      "label": "Wacanen Link",
+      "url": "https://wacanen.vercel.app",
+      "image": "https://zakki.my.id/assets/images/https-wacanen.vercel.app.webp"
+    }
+  ],
+  "links": [
+    {
+      "label": "Proyek Unggulan di GitHub",
+      "url": "https://github.com/amuzakki",
+      "image": "https://zakki.my.id/assets/images/yt-thumbnail-downloader.webp"
+    },
+    {
+      "label": "Artikel & Blog Terbaru",
+      "url": "https://medium.com",
+      "image": ""
+    },
+    {
+      "label": "Kanal YouTube Tutorial",
+      "url": "https://youtube.com",
+      "image": ""
+    },
+    {
+      "label": "Koleksi Template Web & UI",
+      "url": "https://gumroad.com",
+      "image": ""
+    },
+    {
+      "label": "Join Komunitas Diskusi Telegram",
+      "url": "https://t.me",
+      "image": ""
+    },
+    {
+      "label": "Follow Twitter / X untuk Update Harian",
+      "url": "https://x.com",
+      "image": ""
+    },
+    {
+      "label": "Profil LinkedIn & Pengalaman Kerja",
+      "url": "https://linkedin.com",
+      "image": ""
+    },
+    {
+      "label": "Dukung Saya di Traxteer / Trakteer",
+      "url": "https://trakteer.id",
+      "image": ""
+    },
+    {
+      "label": "Download E-Book Panduan Gratis",
+      "url": "https://drive.google.com",
+      "image": ""
+    },
+    {
+      "label": "Daftar Newsletter Mingguan",
+      "url": "https://substack.com",
+      "image": ""
+    },
+    {
+      "label": "Tools & Resource Favorit",
+      "url": "https://notion.so",
+      "image": ""
+    },
+    {
+      "label": "Formulir Kontak & Kerja Sama",
+      "url": "mailto:hello@example.com",
+      "image": ""
+    }
+  ]
+}

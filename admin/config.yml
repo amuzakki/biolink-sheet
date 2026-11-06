@@ -1,0 +1,72 @@
+# Sveltia CMS Configuration
+# Documentation: https://github.com/sveltia/sveltia-cms
+backend:
+  name: github
+  repo: amuzakki/biolink-sheet
+  branch: main
+
+# Aktifkan local_backend untuk mendukung editing lokal atau proxy
+local_backend: true
+
+# Folder penyimpanan upload media
+media_folder: assets/images
+public_folder: assets/images
+
+collections:
+  - name: content
+    label: Konten Bio Link
+    files:
+      - name: biolink_data
+        label: Pengaturan & Daftar Link
+        file: data/content.json
+        format: json
+        fields:
+          - label: Profil & Pengaturan
+            name: settings
+            widget: object
+            required: false
+            fields:
+              - { label: "Nama Lengkap / Judul", name: name, widget: string, default: "Nama Anda" }
+              - { label: "Deskripsi / Bio Singkat", name: description, widget: text, required: false }
+              - { label: "Foto Profil / Avatar", name: avatar_url, widget: image, required: false }
+              - { label: "Jumlah Link per Halaman (Paginasi)", name: links_per_tab, widget: number, default: 5, value_type: int }
+              - { label: "Teks Copyright Footer", name: copyright, widget: string, required: false, default: "Semua Hak Dilindungi" }
+              - { label: "Judul Halaman (Meta Title)", name: meta_title, widget: string, required: false }
+              - { label: "Deskripsi SEO (Meta Description)", name: meta_description, widget: text, required: false }
+
+          - label: Media Sosial
+            name: socials
+            widget: object
+            required: false
+            collapsed: true
+            fields:
+              - { label: "Instagram URL", name: instagram, widget: string, required: false }
+              - { label: "WhatsApp (No HP atau URL)", name: whatsapp, widget: string, required: false }
+              - { label: "TikTok URL", name: tiktok, widget: string, required: false }
+              - { label: "YouTube URL", name: youtube, widget: string, required: false }
+              - { label: "X / Twitter URL", name: x, widget: string, required: false }
+              - { label: "Facebook URL", name: facebook, widget: string, required: false }
+              - { label: "Telegram URL", name: telegram, widget: string, required: false }
+              - { label: "GitHub URL", name: github, widget: string, required: false }
+              - { label: "LinkedIn URL", name: linkedin, widget: string, required: false }
+              - { label: "Email (mailto:...)", name: email, widget: string, required: false }
+
+          - label: "Pinned Link (Disematkan di Atas Paginasi)"
+            name: pinned_links
+            widget: list
+            required: false
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Label / Judul Link", name: label, widget: string }
+              - { label: "URL Tujuan", name: url, widget: string }
+              - { label: "Icon / Thumbnail (Opsional)", name: image, widget: image, required: false }
+
+          - label: "Daftar Link (Dengan Paginasi Tab)"
+            name: links
+            widget: list
+            required: false
+            summary: "{{fields.label}}"
+            fields:
+              - { label: "Label / Judul Link", name: label, widget: string }
+              - { label: "URL Tujuan", name: url, widget: string }
+              - { label: "Icon / Thumbnail (Opsional)", name: image, widget: image, required: false }
